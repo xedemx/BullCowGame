@@ -1,10 +1,19 @@
+/*This is the console executable that uses the BullCow class.
+This acts as the view in a MVC pattern, and is responsible for all
+user interaction. For game logic see the FBullCowGame class.
+
+*/
+
 #include <iostream>
 #include <string>
 #include "FBullCowGame.h"
 
+using FText = std::string;
+using int32 = int;
+
 void PrintIntro();
 void PlayGame();
-std::string GetGuess();
+FText GetGuess();
 bool AskToPlayAgain();
 
 FBullCowGame BCGame; //instantiate a new game
@@ -19,7 +28,6 @@ int main()
 	{
 		PrintIntro();
 		PlayGame();
-
 		bPlayAgain = AskToPlayAgain();
 	} 
 	while (bPlayAgain);
@@ -31,8 +39,8 @@ int main()
 // introduce the game
 void PrintIntro()
 {
-	constexpr int WORD_LENGTH = 9;
-	std::cout << "Welcome to Bulls and Cows, the word game of your lifetime!";
+	constexpr int32 WORD_LENGTH = 9;
+	std::cout << "Welcome to Bulls and Cows, a fun word game with intense action!";
 	std::cout << std::endl;
 	std::cout << "Can you guess the " << WORD_LENGTH << " letter isogram I'm thinking of?" << std::endl;
 	std::cout << std::endl;
@@ -44,15 +52,15 @@ void PrintIntro()
 void PlayGame()
 {
 	BCGame.Reset();
-	int MaxTries = BCGame.GetMaxTries();
+	int32 MaxTries = BCGame.GetMaxTries();
 	std::cout << MaxTries;
 	std::cout << std::endl;
 
 	//loop for the number of turns asking for guesses
 	//TODO change from FOR to WHILE loop once we are validating tries
-	for (int i = 1; i <= MaxTries; i++)
+	for (int32 i = 1; i <= MaxTries; i++)
 	{
-		std::string Guess = GetGuess(); //TODO validate guesses in loop
+		FText Guess = GetGuess(); //TODO validate guesses in loop
 
 		//submit valid guess to the game
 		//print number of bulls and cows
@@ -69,10 +77,10 @@ void PlayGame()
 
 
 //get a guess from the player and repeat the guess back to them
-std::string GetGuess()
+FText GetGuess()
 {
-	std::string Guess = "";
-	int CurrentTry = BCGame.GetCurrentTry();
+	FText Guess = "";
+	int32 CurrentTry = BCGame.GetCurrentTry();
 	std::cout << "Try " << CurrentTry << ". Please enter your guess: ";
 	getline(std::cin, Guess);
 
@@ -82,7 +90,7 @@ std::string GetGuess()
 bool AskToPlayAgain()
 {
 	std::cout << "Do you want to play again(y/n)?";
-	std::string Response = "";
+	FText Response = "";
 	getline(std::cin, Response);
 
 	return (Response[0] == 'y' || Response[0] == 'Y');
