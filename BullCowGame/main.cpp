@@ -9,6 +9,8 @@ bool AskToPlayAgain();
 
 FBullCowGame BCGame; //instantiate a new game
 
+//test comment
+
 //The entry point for our application
 int main()
 {
@@ -33,7 +35,7 @@ void PrintIntro()
 	std::cout << std::endl;
 	std::cout << "Can you guess the " << WORD_LENGTH << " letter isogram I'm thinking of?" << std::endl;
 	std::cout << std::endl;
-
+	
 	return;
 }
 
