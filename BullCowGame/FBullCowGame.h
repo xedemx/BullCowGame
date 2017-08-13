@@ -33,7 +33,7 @@ public:
 	EGuessStatus CheckGuessValidity(FString) const;
 
 	void Reset(); //TODO make a more rich return value
-	FBullCowCount SubmitGuess(FString);
+	FBullCowCount SubmitValidGuess(FString);
 
 
 //^^ please try and ignore his and focus on the interface above ^^
@@ -42,4 +42,5 @@ private:
 	int32 MyCurrentTry;
 	int32 MyMaxTries;
 	FString MyHiddenWord;
+	bool bMyGameIsWon;
 };
