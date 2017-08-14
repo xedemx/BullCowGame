@@ -2,6 +2,7 @@
 This acts as the view in a MVC pattern, and is responsible for all
 user interaction. For game logic see the FBullGoatGame class.
 */
+#pragma once
 
 #include <iostream>
 #include <string>
@@ -10,13 +11,14 @@ user interaction. For game logic see the FBullGoatGame class.
 using FText = std::string; //to conform with Unreal coding standards
 using int32 = int; //to conform with Unreal coding standards
 
+//function prototypes
 void PrintIntro();
 void PlayGame();
 FText GetValidGuess();
 bool AskToPlayAgain();
 void PrintGameSummary();
 
-FBullGoatGame BCGame; //instantiate a new game
+FBullGoatGame BGGame; //instantiate a new game, which we reuse every new game
 
 
 //the entry point for our application
@@ -24,39 +26,41 @@ int main()
 {
 	bool bPlayAgain = false;
 	do 
-	{
+	{//plays a single game until completion
+		BGGame.Reset();
 		PrintIntro();
 		PlayGame();
 		bPlayAgain = AskToPlayAgain();
 	} 
-	while (bPlayAgain);
+	while (bPlayAgain);	//for future: allow playing until player wants to quit
+
 
 	return 0; //exit the app
 }
 
 
-// introduce the game
 void PrintIntro()
 {
 	//constexpr int32 WORD_LENGTH = 9;
-	int32 WordLength = BCGame.GetHiddenWordLength();
+	int32 WordLength = BGGame.GetHiddenWordLength();
+	//std::cout << BGGame.GetHiddenWord();
 	std::cout << std::endl;
-	std::cout << "*************************************************************************";
+	std::cout << "***************************************************************************";
 	std::cout << std::endl;
-	std::cout << "**  Welcome to Bulls and Goats, a fun word game with intense action :) **";
+	std::cout << "**  Welcome to Bulls and Goats, a fun word game with hint of suspense :) **";
 	std::cout << std::endl;
-	std::cout << "*************************************************************************";
+	std::cout << "***************************************************************************";
 	std::cout << std::endl;
 	std::cout << std::endl;
 
-	std::cout << "    ,           ,                         _))       " << std::endl;
-	std::cout << "   /             \\      BULLS            > *\\     _~      " << std::endl;
-	std::cout << "  ((__-^^-,-^^-__))                       `;'\\\\__-' \\_       " << std::endl;
-	std::cout << "   `-_---' `---_-'                           | )  _ \\ \\      " << std::endl;
-	std::cout << "    <__|o` 'o|__>            &              / / ``   w w      " << std::endl;
-	std::cout << "       \\  `  /                            w w          " << std::endl;
-	std::cout << "        ): :(                    GOATS                 " << std::endl;
-	std::cout << "        :o_o:                                           " << std::endl;
+	std::cout << "    ,           ,                         _))                    " << std::endl;
+	std::cout << "   /             \\      BULLS            > *\\     _~           " << std::endl;
+	std::cout << "  ((__-^^-,-^^-__))                       `;'\\\\__-' \\_        " << std::endl;
+	std::cout << "   `-_---' `---_-'                           | )  _ \\ \\        " << std::endl;
+	std::cout << "    <__|o` 'o|__>            &              / / ``   w w         " << std::endl;
+	std::cout << "       \\  `  /                            w w                   " << std::endl;
+	std::cout << "        ): :(                    GOATS                           " << std::endl;
+	std::cout << "        :o_o:                                                    " << std::endl;
 	std::cout << "        ' - '                                                    " << std::endl;
 
 	std::cout << std::endl;
@@ -88,17 +92,17 @@ void PrintIntro()
 
 void PlayGame()
 {
-	BCGame.Reset();
-	int32 MaxTries = BCGame.GetMaxTries();
 
-	//loop asking for guesses while the game 
-	//is NOT won and still tries remaining
-	while(!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries)
+	//std::cout << BGGame.GetHiddenWord();
+	int32 MaxTries = BGGame.GetMaxTries();
+
+	//loop asking for guesses while the game is NOT won and still tries remaining
+	while(!BGGame.IsGameWon() && BGGame.GetCurrentTry() <= MaxTries)
 	{
 		FText Guess = GetValidGuess(); 
 
 		//submit valid guess to the game and receive counts
-		FBullGoatCount BullGoatCount = BCGame.SubmitValidGuess(Guess);
+		FBullGoatCount BullGoatCount = BGGame.SubmitValidGuess(Guess);
 		
 		std::cout << "Bulls = [" << BullGoatCount.Bulls;
 		std::cout << "], Goats = [" << BullGoatCount.Goats << "]";
@@ -116,22 +120,22 @@ void PlayGame()
 FText GetValidGuess()
 {
 	FText Guess = "";
-	int32 MaxTries = BCGame.GetMaxTries();
+	int32 MaxTries = BGGame.GetMaxTries();
 	EGuessStatus Status = EGuessStatus::Invalid_Status;
 	do
 	{ 
-		int32 CurrentTry = BCGame.GetCurrentTry();
+		int32 CurrentTry = BGGame.GetCurrentTry();
 		//get a guess from the player
 		std::cout << "Try " << CurrentTry << " of " << MaxTries << ". Enter your guess: ";
 		getline(std::cin, Guess);
 
 		//check status and give feedback
-		Status = BCGame.CheckGuessValidity(Guess);
+		Status = BGGame.CheckGuessValidity(Guess);
 		switch (Status)
 		{
 			case EGuessStatus::Wrong_Length:
 			{
-				std::cout << "Please enter a " << BCGame.GetHiddenWordLength() << " letter word.";
+				std::cout << "Please enter a " << BGGame.GetHiddenWordLength() << " letter word.";
 				std::cout << std::endl;
 				std::cout << std::endl;
 				break;
@@ -163,7 +167,7 @@ FText GetValidGuess()
 
 bool AskToPlayAgain()
 {
-	std::cout << "Do you want to play again with the same hidden word (y/n)?";
+	std::cout << "Do you want to play again (y/n)?";
 	FText Response = "";
 	getline(std::cin, Response);
 
@@ -172,7 +176,7 @@ bool AskToPlayAgain()
 
 void PrintGameSummary()
 {
-	if (BCGame.IsGameWon())
+	if (BGGame.IsGameWon())
 	{
 		std::cout << "CONGRATULATIONS! YOU HAVE WON!";
 		std::cout << std::endl;
@@ -180,7 +184,7 @@ void PrintGameSummary()
 	}
 	else
 	{
-		std::cout << "BETTER LUCK NEXT TIME, BUT STAY POSITIVE :) !";
+		std::cout << "BETTER LUCK NEXT TIME, BUT STAY POSITIVE :)";
 		std::cout << std::endl;
 		std::cout << std::endl;
 	}
@@ -188,5 +192,3 @@ void PrintGameSummary()
 	return;
 
 }
-
-

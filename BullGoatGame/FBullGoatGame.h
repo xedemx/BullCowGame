@@ -1,16 +1,21 @@
+/*
+The game logic (no view code or direct user interaction).
+The game is a simple word guess based on Mastermind.
+*/
 #pragma once
 #include <string>
 
-using FString = std::string;
-using int32 = int;
+using FString = std::string; //to conform with Unreal coding standards
+using int32 = int; //to conform with Unreal coding standards
 
-//two integers initialized to zero
+
 struct FBullGoatCount
 {
 	int32 Bulls = 0;
 	int32 Goats = 0;
 };
 
+//possible status list for the user guesses
 enum class EGuessStatus 
 {
 	Invalid_Status,
@@ -20,6 +25,7 @@ enum class EGuessStatus
 	Not_LowerCase
 };
 
+
 class FBullGoatGame
 {
 public:
@@ -28,6 +34,7 @@ public:
 	int32 GetMaxTries() const;
 	int32 GetCurrentTry() const;
 	int32 GetHiddenWordLength() const;
+	FString GetHiddenWord() const; //for debugging purposes only
 
 	bool IsGameWon() const;
 	EGuessStatus CheckGuessValidity(FString) const;

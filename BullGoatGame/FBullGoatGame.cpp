@@ -1,29 +1,30 @@
+#pragma once
 #include "FBullGoatGame.h"
 #include <map>
-#include <time.h> //for random seed
+#include <time.h> //for random seed when selecting random hidden word
 #define TMap std::map  //to conform with Unreal coding standards
 
 FBullGoatGame::FBullGoatGame() { Reset(); } //default constructor
 
-
 int32 FBullGoatGame::GetCurrentTry() const { return MyCurrentTry; }
 int32 FBullGoatGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
+FString FBullGoatGame::GetHiddenWord() const { return MyHiddenWord; } //for debugging purposes only
 bool FBullGoatGame::IsGameWon() const { return bMyGameIsWon; }
 
 int32 FBullGoatGame::GetMaxTries() const 
 { 
-	TMap<int32, int32> WordLengthToMaxTries{ {3,6},{4,10},{5,14},{6,20} }; //create map to adjust difficulty(i.e. the max tries) based on word lenght
+	TMap<int32, int32> WordLengthToMaxTries{ {3,6},{4,10},{5,14},{6,20} }; //create map to adjust difficulty(i.e. the max tries) based on word length
 	return WordLengthToMaxTries[MyHiddenWord.length()];
 }
 
 void FBullGoatGame::Reset()
 {
 	constexpr int32 MAX_TRIES = 3;
-	const FString HIDDEN_WORDS[] = { "games","fun","joy","play" };
+	const FString HIDDEN_WORDS[] = { "games","fun","joy","play" }; // words MUST be isograms
 	srand(time(NULL)); //initialize random seed
 	
 	MyMaxTries = MAX_TRIES;	
-	MyHiddenWord = HIDDEN_WORDS[rand() % 3]; //select word "randomly"
+	MyHiddenWord = HIDDEN_WORDS[rand() % 4]; //select word "randomly"
 	MyCurrentTry = 1;
 	bMyGameIsWon = false;
 
