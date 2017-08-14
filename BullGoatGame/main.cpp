@@ -18,7 +18,7 @@ FText GetValidGuess();
 bool AskToPlayAgain();
 void PrintGameSummary();
 
-FBullGoatGame BGGame; //instantiate a new game, which we reuse every new game
+FBullGoatGame BGGame; //instantiate a new game, which we reuse every time a new turn is started
 
 
 //the entry point for our application
