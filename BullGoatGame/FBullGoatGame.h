@@ -36,7 +36,6 @@ public:
 	FBullGoatCount SubmitValidGuess(FString);
 
 
-//^^ please try and ignore his and focus on the interface above ^^
 private:
 	//see constructor for initialization
 	int32 MyCurrentTry;

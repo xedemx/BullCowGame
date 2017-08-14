@@ -1,5 +1,6 @@
 #include "FBullGoatGame.h"
 #include <map>
+#include <time.h> //for random seed
 #define TMap std::map  //to conform with Unreal coding standards
 
 FBullGoatGame::FBullGoatGame() { Reset(); } //default constructor
@@ -18,10 +19,11 @@ int32 FBullGoatGame::GetMaxTries() const
 void FBullGoatGame::Reset()
 {
 	constexpr int32 MAX_TRIES = 3;
-	const FString HIDDEN_WORD = "ape";
+	const FString HIDDEN_WORDS[] = { "games","fun","joy","play" };
+	srand(time(NULL)); //initialize random seed
 	
 	MyMaxTries = MAX_TRIES;	
-	MyHiddenWord = HIDDEN_WORD;
+	MyHiddenWord = HIDDEN_WORDS[rand() % 3]; //select word "randomly"
 	MyCurrentTry = 1;
 	bMyGameIsWon = false;
 

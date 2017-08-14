@@ -1,7 +1,6 @@
-/*This is the console executable that uses the BullGoat class.
+/*This is the console executable that uses the BullGoatGame class.
 This acts as the view in a MVC pattern, and is responsible for all
 user interaction. For game logic see the FBullGoatGame class.
-
 */
 
 #include <iostream>
@@ -44,7 +43,7 @@ void PrintIntro()
 	std::cout << std::endl;
 	std::cout << "*************************************************************************";
 	std::cout << std::endl;
-	std::cout << "**  Welcome to Bulls and Goats, a fun word game with intense action :)  **";
+	std::cout << "**  Welcome to Bulls and Goats, a fun word game with intense action :) **";
 	std::cout << std::endl;
 	std::cout << "*************************************************************************";
 	std::cout << std::endl;
@@ -63,12 +62,12 @@ void PrintIntro()
 	std::cout << std::endl;
 	std::cout << "*************************************************************************";
 	std::cout << std::endl;
-	std::cout << "Can you guess the [" << WordLength << "] letter isogram* I'm thinking of?" ;
+	std::cout << "Can you guess the [" << WordLength << "] letter isogram I'm thinking of?" ;
 	std::cout << std::endl;
 	std::cout << std::endl;
 	std::cout << "INSTRUCTIONS";
 	std::cout << std::endl;
-	std::cout << "- *An isogram is a word without repeating letters.";
+	std::cout << "- An isogram is a word without repeating letters.";
 	std::cout << std::endl;
 	std::cout << "- Bulls indicate a correct letter at the correct space";
 	std::cout << std::endl;
