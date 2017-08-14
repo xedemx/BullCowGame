@@ -8,8 +8,8 @@ user interaction. For game logic see the FBullCowGame class.
 #include <string>
 #include "FBullCowGame.h"
 
-using FText = std::string;
-using int32 = int;
+using FText = std::string; //to conform with Unreal coding standards
+using int32 = int; //to conform with Unreal coding standards
 
 void PrintIntro();
 void PlayGame();
@@ -134,6 +134,7 @@ void PrintGameSummary()
 	if (BCGame.IsGameWon())
 	{
 		std::cout << "CONGRATULATIONS! YOU HAVE WON!";
+		std::cout << std::endl;
 		std::cout << std::endl;
 	}
 	else

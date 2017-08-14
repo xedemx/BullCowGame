@@ -43,4 +43,7 @@ private:
 	int32 MyMaxTries;
 	FString MyHiddenWord;
 	bool bMyGameIsWon;
+
+	bool IsIsogram(FString) const;
+	bool IsLowercase(FString) const;
 };
