@@ -12,7 +12,7 @@ bool FBullCowGame::IsGameWon() const { return bMyGameIsWon; }
 void FBullCowGame::Reset()
 {
 	constexpr int32 MAX_TRIES = 8;
-	const FString HIDDEN_WORD = "drebin";
+	const FString HIDDEN_WORD = "games";
 	
 	MyMaxTries = MAX_TRIES;	
 	MyHiddenWord = HIDDEN_WORD;
@@ -30,7 +30,7 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 	}
 	else if (!IsLowercase(Guess)) //if the guess isn't all lowercase
 	{
-		return EGuessStatus::Not_LowerCase; //TODO write function
+		return EGuessStatus::Not_LowerCase;
 	}
 	else if (Guess.length() != GetHiddenWordLength()) //if the guess length is wrong
 	{
@@ -41,18 +41,12 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 		EGuessStatus::OK;
 	}
 
-	//if the guess length is wrong
-		//return error
-	//otherwise
-		//return OK
-
 	return EGuessStatus::OK; 
 }
 
 //receives a VALID guess increments turn and returns count
 FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 {
-
 	MyCurrentTry++;
 	FBullCowCount BullCowCount;
 	int32 WorldLength = GetHiddenWordLength(); //assuming same length as guess
@@ -92,7 +86,6 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 bool FBullCowGame::IsIsogram(FString Word) const
 {
 	//treat 0 and 1 letter words as isograms
-
 	if (Word.length() <= 1) { return true; }
 
 	TMap<char, bool> LetterSeen; 		//setup map
@@ -126,7 +119,6 @@ bool FBullCowGame::IsLowercase(FString Word) const
 		{
 			return false;
 		}
-
 	}
 
 	return true;

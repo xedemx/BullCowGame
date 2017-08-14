@@ -42,10 +42,28 @@ void PrintIntro()
 	//constexpr int32 WORD_LENGTH = 9;
 	int32 WordLength = BCGame.GetHiddenWordLength();
 	std::cout << std::endl;
+	std::cout << "*************************************************************************";
 	std::cout << std::endl;
-	std::cout << "Welcome to Bulls and Cows, a fun word game with intense action!";
+	std::cout << "**  Welcome to Bulls and Cows, a fun word game with intense action :)  **";
 	std::cout << std::endl;
-	std::cout << "Can you guess the " << WordLength << " letter isogram I'm thinking of?" << std::endl;
+	std::cout << "*************************************************************************";
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << "    ,           ,                           ,/         \\,       " << std::endl;
+	std::cout << "   /             \\      BULLS              ((__,-'''-,__))      " << std::endl;  
+	std::cout << "  ((__-^^-,-^^-__))                         `--)~   ~(--`       " << std::endl;
+	std::cout << "   `-_---' `---_-'                         .-'(       )`-.      " << std::endl;
+	std::cout << "    <__|o` 'o|__>            &             `~~`d\\   /b`~~`      " << std::endl;
+	std::cout << "       \\  `  /                                 |     |          " << std::endl;
+	std::cout << "        ): :(                    COWS          (6___6)          " << std::endl;
+	std::cout << "        :o_o:                                   `---`           " << std::endl;
+	std::cout << "        ' - '                                                    " << std::endl;
+	std::cout << std::endl;
+	std::cout << "*************************************************************************";
+	std::cout << std::endl;
+	std::cout << "Can you guess the " << WordLength << " letter isogram* I'm thinking of?" << std::endl;
+	std::cout << "(*An isogram is a word without repeating letters.)" << std::endl;
+	std::cout << "*************************************************************************";
 	std::cout << std::endl;
 	
 	return;
@@ -82,12 +100,13 @@ void PlayGame()
 FText GetValidGuess()
 {
 	FText Guess = "";
+	int32 MaxTries = BCGame.GetMaxTries();
 	EGuessStatus Status = EGuessStatus::Invalid_Status;
 	do
 	{ 
 		int32 CurrentTry = BCGame.GetCurrentTry();
 		//get a guess from the player
-		std::cout << "Try " << CurrentTry << ". Please enter your guess: ";
+		std::cout << "Try " << CurrentTry << " of " << MaxTries << ". Enter your guess: ";
 		getline(std::cin, Guess);
 
 		//check status and give feedback
@@ -97,16 +116,22 @@ FText GetValidGuess()
 			case EGuessStatus::Wrong_Length:
 			{
 				std::cout << "Please enter a " << BCGame.GetHiddenWordLength() << " letter word.";
+				std::cout << std::endl;
+				std::cout << std::endl;
 				break;
 			}
 			case EGuessStatus::Not_Isogram:
 			{
 				std::cout << "Please enter a word without repeating letters.";
+				std::cout << std::endl;
+				std::cout << std::endl;
 				break;
 			}
 			case EGuessStatus::Not_LowerCase:
 			{
 				std::cout << "Please enter only lowercase letters.";
+				std::cout << std::endl;
+				std::cout << std::endl;
 				break;
 			}
 			default:
@@ -114,7 +139,7 @@ FText GetValidGuess()
 				break; 
 			}
 		}
-		std::cout << std::endl;
+
 	} while (Status != EGuessStatus::OK); // keep looping until we get no errors
 
 	return Guess;
