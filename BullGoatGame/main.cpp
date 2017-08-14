@@ -41,7 +41,6 @@ int main()
 
 void PrintIntro()
 {
-	//constexpr int32 WORD_LENGTH = 9;
 	int32 WordLength = BGGame.GetHiddenWordLength();
 	//std::cout << BGGame.GetHiddenWord();
 	std::cout << std::endl;
