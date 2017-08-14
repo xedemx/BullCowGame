@@ -5,10 +5,10 @@ using FString = std::string;
 using int32 = int;
 
 //two integers initialized to zero
-struct FBullCowCount
+struct FBullGoatCount
 {
 	int32 Bulls = 0;
-	int32 Cows = 0;
+	int32 Goats = 0;
 };
 
 enum class EGuessStatus 
@@ -20,10 +20,10 @@ enum class EGuessStatus
 	Not_LowerCase
 };
 
-class FBullCowGame
+class FBullGoatGame
 {
 public:
-	FBullCowGame(); //constructor
+	FBullGoatGame(); //constructor
 
 	int32 GetMaxTries() const;
 	int32 GetCurrentTry() const;
@@ -33,7 +33,7 @@ public:
 	EGuessStatus CheckGuessValidity(FString) const;
 
 	void Reset();
-	FBullCowCount SubmitValidGuess(FString);
+	FBullGoatCount SubmitValidGuess(FString);
 
 
 //^^ please try and ignore his and focus on the interface above ^^

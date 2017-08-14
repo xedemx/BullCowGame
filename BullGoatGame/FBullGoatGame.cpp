@@ -1,18 +1,24 @@
-#include "FBullCowGame.h"
+#include "FBullGoatGame.h"
 #include <map>
 #define TMap std::map  //to conform with Unreal coding standards
 
-FBullCowGame::FBullCowGame() { Reset(); }
+FBullGoatGame::FBullGoatGame() { Reset(); } //default constructor
 
-int32 FBullCowGame::GetMaxTries() const { return MyMaxTries; }
-int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
-int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
-bool FBullCowGame::IsGameWon() const { return bMyGameIsWon; }
 
-void FBullCowGame::Reset()
+int32 FBullGoatGame::GetCurrentTry() const { return MyCurrentTry; }
+int32 FBullGoatGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
+bool FBullGoatGame::IsGameWon() const { return bMyGameIsWon; }
+
+int32 FBullGoatGame::GetMaxTries() const 
+{ 
+	TMap<int32, int32> WordLengthToMaxTries{ {3,6},{4,10},{5,14},{6,20} }; //create map to adjust difficulty(i.e. the max tries) based on word lenght
+	return WordLengthToMaxTries[MyHiddenWord.length()];
+}
+
+void FBullGoatGame::Reset()
 {
-	constexpr int32 MAX_TRIES = 8;
-	const FString HIDDEN_WORD = "games";
+	constexpr int32 MAX_TRIES = 3;
+	const FString HIDDEN_WORD = "ape";
 	
 	MyMaxTries = MAX_TRIES;	
 	MyHiddenWord = HIDDEN_WORD;
@@ -22,7 +28,7 @@ void FBullCowGame::Reset()
 	return;
 }
 
-EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
+EGuessStatus FBullGoatGame::CheckGuessValidity(FString Guess) const
 {
 	if (!IsIsogram(Guess)) //if the guess isn't an isogram
 	{
@@ -45,10 +51,10 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 }
 
 //receives a VALID guess increments turn and returns count
-FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
+FBullGoatCount FBullGoatGame::SubmitValidGuess(FString Guess)
 {
 	MyCurrentTry++;
-	FBullCowCount BullCowCount;
+	FBullGoatCount BullGoatCount;
 	int32 WorldLength = GetHiddenWordLength(); //assuming same length as guess
 	
 	//loop through all letters in the hidden word
@@ -61,17 +67,17 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 			{
 				if (MHWChar == GChar)
 				{//and are in the same place
-					BullCowCount.Bulls++; // inc bulls
+					BullGoatCount.Bulls++; // inc bulls
 				}
 				else
 				{//not in the same place
-					BullCowCount.Cows++; // inc cows
+					BullGoatCount.Goats++; // inc goats
 				}
 			}
 		}
 	}
 
-	if (BullCowCount.Bulls == WorldLength)
+	if (BullGoatCount.Bulls == WorldLength)
 	{
 		bMyGameIsWon = true;
 	}
@@ -80,15 +86,15 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 		bMyGameIsWon = false;
 	}
 
-	return BullCowCount;
+	return BullGoatCount;
 }
 
-bool FBullCowGame::IsIsogram(FString Word) const
+bool FBullGoatGame::IsIsogram(FString Word) const
 {
 	//treat 0 and 1 letter words as isograms
 	if (Word.length() <= 1) { return true; }
 
-	TMap<char, bool> LetterSeen; 		//setup map
+	TMap<char, bool> LetterSeen; //setup map
 
 	for (auto Letter : Word) //for all letters of the word
 	{
@@ -106,7 +112,7 @@ bool FBullCowGame::IsIsogram(FString Word) const
 	return true; // can get here if \0 is entered
 }
 
-bool FBullCowGame::IsLowercase(FString Word) const
+bool FBullGoatGame::IsLowercase(FString Word) const
 {
 	if(Word.length() < 1)
 	{

@@ -1,12 +1,12 @@
-/*This is the console executable that uses the BullCow class.
+/*This is the console executable that uses the BullGoat class.
 This acts as the view in a MVC pattern, and is responsible for all
-user interaction. For game logic see the FBullCowGame class.
+user interaction. For game logic see the FBullGoatGame class.
 
 */
 
 #include <iostream>
 #include <string>
-#include "FBullCowGame.h"
+#include "FBullGoatGame.h"
 
 using FText = std::string; //to conform with Unreal coding standards
 using int32 = int; //to conform with Unreal coding standards
@@ -17,7 +17,7 @@ FText GetValidGuess();
 bool AskToPlayAgain();
 void PrintGameSummary();
 
-FBullCowGame BCGame; //instantiate a new game
+FBullGoatGame BCGame; //instantiate a new game
 
 
 //the entry point for our application
@@ -44,25 +44,42 @@ void PrintIntro()
 	std::cout << std::endl;
 	std::cout << "*************************************************************************";
 	std::cout << std::endl;
-	std::cout << "**  Welcome to Bulls and Cows, a fun word game with intense action :)  **";
+	std::cout << "**  Welcome to Bulls and Goats, a fun word game with intense action :)  **";
 	std::cout << std::endl;
 	std::cout << "*************************************************************************";
 	std::cout << std::endl;
 	std::cout << std::endl;
-	std::cout << "    ,           ,                           ,/         \\,       " << std::endl;
-	std::cout << "   /             \\      BULLS              ((__,-'''-,__))      " << std::endl;  
-	std::cout << "  ((__-^^-,-^^-__))                         `--)~   ~(--`       " << std::endl;
-	std::cout << "   `-_---' `---_-'                         .-'(       )`-.      " << std::endl;
-	std::cout << "    <__|o` 'o|__>            &             `~~`d\\   /b`~~`      " << std::endl;
-	std::cout << "       \\  `  /                                 |     |          " << std::endl;
-	std::cout << "        ): :(                    COWS          (6___6)          " << std::endl;
-	std::cout << "        :o_o:                                   `---`           " << std::endl;
+
+	std::cout << "    ,           ,                         _))       " << std::endl;
+	std::cout << "   /             \\      BULLS            > *\\     _~      " << std::endl;
+	std::cout << "  ((__-^^-,-^^-__))                       `;'\\\\__-' \\_       " << std::endl;
+	std::cout << "   `-_---' `---_-'                           | )  _ \\ \\      " << std::endl;
+	std::cout << "    <__|o` 'o|__>            &              / / ``   w w      " << std::endl;
+	std::cout << "       \\  `  /                            w w          " << std::endl;
+	std::cout << "        ): :(                    GOATS                 " << std::endl;
+	std::cout << "        :o_o:                                           " << std::endl;
 	std::cout << "        ' - '                                                    " << std::endl;
+
 	std::cout << std::endl;
 	std::cout << "*************************************************************************";
 	std::cout << std::endl;
-	std::cout << "Can you guess the " << WordLength << " letter isogram* I'm thinking of?" << std::endl;
-	std::cout << "(*An isogram is a word without repeating letters.)" << std::endl;
+	std::cout << "Can you guess the [" << WordLength << "] letter isogram* I'm thinking of?" ;
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << "INSTRUCTIONS";
+	std::cout << std::endl;
+	std::cout << "- *An isogram is a word without repeating letters.";
+	std::cout << std::endl;
+	std::cout << "- Bulls indicate a correct letter at the correct space";
+	std::cout << std::endl;
+	std::cout << "- Goats indicate a correct letter at the wrong space";
+	std::cout << std::endl;
+	std::cout << "- Guess the word before your tries run out!";
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << "GOOD LUCK!";
+	std::cout << std::endl;
+	std::cout << std::endl;
 	std::cout << "*************************************************************************";
 	std::cout << std::endl;
 	
@@ -82,10 +99,10 @@ void PlayGame()
 		FText Guess = GetValidGuess(); 
 
 		//submit valid guess to the game and receive counts
-		FBullCowCount BullCowCount = BCGame.SubmitValidGuess(Guess);
+		FBullGoatCount BullGoatCount = BCGame.SubmitValidGuess(Guess);
 		
-		std::cout << "Bulls = [" << BullCowCount.Bulls;
-		std::cout << "], Cows = [" << BullCowCount.Cows << "]";
+		std::cout << "Bulls = [" << BullGoatCount.Bulls;
+		std::cout << "], Goats = [" << BullGoatCount.Goats << "]";
 		std::cout << std::endl;
 		std::cout << std::endl;
 	}
